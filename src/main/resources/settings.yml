@@ -1,2 +1,3 @@
 server:
   port: 8080
+  send: "http://localhost:3000"

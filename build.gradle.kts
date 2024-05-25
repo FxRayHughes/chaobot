@@ -33,6 +33,7 @@ dependencies {
     taboo("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24")
     taboo("org.slf4j:slf4j-simple:2.0.10")
     taboo("com.alibaba.fastjson2:fastjson2-kotlin:2.0.50")
+    taboo("com.squareup.okhttp3:okhttp:4.12.0")
     testImplementation(kotlin("test"))
     testImplementation("com.alibaba.fastjson2:fastjson2-kotlin:2.0.50")
     taboo(kotlin("reflect"))

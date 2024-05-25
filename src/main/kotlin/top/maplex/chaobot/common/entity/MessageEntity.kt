@@ -1,6 +1,8 @@
 package top.maplex.chaobot.common.entity
 
 import com.alibaba.fastjson2.annotation.JSONField
+import taboolib.common.platform.ProxyCommandSender
+import top.maplex.chaobot.Main
 
 data class MessageEntity(
     val time: Long = -1,
@@ -47,5 +49,35 @@ data class MessageEntity(
         val role: String = "",
         @JSONField(name = "title")
         val title: String = "",
-    )
+        @JSONField(serialize = false, deserialize = false)
+        override var isOp: Boolean,
+        @JSONField(serialize = false, deserialize = false)
+        override val name: String = nickname,
+        @JSONField(serialize = false, deserialize = false)
+        override val origin: Any,
+    ) : ProxyCommandSender {
+        override fun hasPermission(permission: String): Boolean {
+            if (role == "") {
+                return userId in Main.getAdmins()
+            }
+            if (permission == "admin") {
+                return role == "admin" || role == "owner"
+            }
+            return false
+        }
+
+        override fun isOnline(): Boolean {
+            return true
+        }
+
+        override fun performCommand(command: String): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun sendMessage(message: String) {
+            println(message)
+        }
+
+
+    }
 }
