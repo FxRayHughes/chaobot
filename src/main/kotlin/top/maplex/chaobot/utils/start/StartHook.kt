@@ -3,24 +3,29 @@ package top.maplex.chaobot.utils.start
 import taboolib.common.io.getInstance
 import taboolib.common.io.runningClasses
 import taboolib.common.platform.Awake
+import taboolib.common.platform.event.SubscribeEvent
 import taboolib.library.reflex.Reflex.Companion.invokeMethod
 import taboolib.module.configuration.Config
-import taboolib.module.configuration.ConfigFile
 import taboolib.module.configuration.Configuration
 import taboolib.module.configuration.Type
+import top.maplex.chaobot.utils.event.BotListener
+import top.maplex.chaobot.utils.event.EventManager
 import top.maplex.chaobot.utils.tPrintln
 import java.io.File
 
 object StartHook {
 
+    private const val PACKAGE = "top.maplex.chaobot"
+
     fun eval() {
         evalConfig()
         evalAwake()
+        evalEvent()
     }
 
     fun evalConfig() {
         runningClasses.forEach { clazz ->
-            if (clazz.name.startsWith("top.maplex.chaobot")) {
+            if (clazz.name.startsWith(PACKAGE)) {
                 val instance = clazz.kotlin.objectInstance ?: clazz.getInstance()
                 if (instance != null) {
                     clazz.fields.forEach {
@@ -52,7 +57,7 @@ object StartHook {
 
     fun evalAwake() {
         runningClasses.forEach { clazz ->
-            if (clazz.name.startsWith("top.maplex.chaobot")) {
+            if (clazz.name.startsWith(PACKAGE)) {
                 val instance = clazz.kotlin.objectInstance ?: clazz.getInstance()
                 if (instance != null) {
                     clazz.methods.forEach { method ->
@@ -64,6 +69,28 @@ object StartHook {
                             }
                         }
                     }
+                }
+
+            }
+        }
+    }
+
+    fun evalEvent() {
+        runningClasses.forEach { clazz ->
+            if (clazz.name.startsWith(PACKAGE)) {
+                val instance = clazz.kotlin.objectInstance ?: clazz.getInstance()
+                if (instance != null) {
+                    clazz.methods.forEach { method ->
+                        if (method.isAnnotationPresent(SubscribeEvent::class.java)) {
+                            val annotation = method.getAnnotation(SubscribeEvent::class.java)!!
+                            method.parameters.firstOrNull()?.let { parameter ->
+                                val handlerList = EventManager.getHandlers(parameter.type)
+                                handlerList.register(BotListener(instance, method, annotation.level))
+                            }
+
+                        }
+                    }
+
                 }
 
             }
