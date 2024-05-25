@@ -2,7 +2,7 @@ package top.maplex.chaobot.common.entity
 
 import com.alibaba.fastjson2.annotation.JSONField
 import taboolib.common.platform.ProxyCommandSender
-import top.maplex.chaobot.Main
+import top.maplex.chaobot.BotConfig
 
 data class MessageEntity(
     var time: Long = -1,
@@ -32,22 +32,22 @@ data class MessageEntity(
 
     data class MessageData(
         var type: String,
-        var data: Any,
+        var data: MessageDataValue,
     )
 
     data class MessageDataValue(
-        var text: String = "",
-        var id: String = "",
-        var file: String = "",
-        var type: String = "",
-        var url: String = "",
-        var cache: Int = 1,
-        var proxy: Int = 1,
+        var text: String? = null,
+        var id: String? = null,
+        var file: String? = null,
+        var type: String? = null,
+        var url: String? = null,
+        var cache: Int? = null,
+        var proxy: Int? = null,
         var timeout: Int = -1,
-        var qq: String = "",
-        var title: String = "",
-        var content: String = "",
-        val image: String = "",
+        var qq: String? = null,
+        var title: String? = null,
+        var content: String? = null,
+        var image: String? = null,
     )
 
     data class SenderEntity(
@@ -69,35 +69,36 @@ data class MessageEntity(
         var role: String = "",
         @JSONField(name = "title")
         var title: String = "",
-        @JSONField(serialize = false, deserialize = false)
-        override var isOp: Boolean,
-        @JSONField(serialize = false, deserialize = false)
-        override var name: String = nickname,
-        @JSONField(serialize = false, deserialize = false)
-        override var origin: Any,
-    ) : ProxyCommandSender {
-        override fun hasPermission(permission: String): Boolean {
-            if (role == "") {
-                return userId in Main.getAdmins()
-            }
-            if (permission == "admin") {
-                return role == "admin" || role == "owner"
-            }
-            return false
-        }
+    )
 
-        override fun isOnline(): Boolean {
-            return true
-        }
-
-        override fun performCommand(command: String): Boolean {
-            TODO("Not yet implemented")
-        }
-
-        override fun sendMessage(message: String) {
-            println(message)
-        }
-
-
-    }
+    /**        @JSONField(serialize = false, deserialize = false)
+    override var isOp: Boolean,
+    @JSONField(serialize = false, deserialize = false)
+    override var name: String = nickname,
+    @JSONField(serialize = false, deserialize = false)
+    override var origin: Any,
+     *  : ProxyCommandSender {
+     *         override fun hasPermission(permission: String): Boolean {
+     *             if (role == "") {
+     *                 return userId in BotConfig.getAdmins()
+     *             }
+     *             if (permission == "admin") {
+     *                 return role == "admin" || role == "owner"
+     *             }
+     *             return false
+     *         }
+     *
+     *         override fun isOnline(): Boolean {
+     *             return true
+     *         }
+     *
+     *         override fun performCommand(command: String): Boolean {
+     *             TODO("Not yet implemented")
+     *         }
+     *
+     *         override fun sendMessage(message: String) {
+     *             println(message)
+     *         }
+     *     }
+     */
 }

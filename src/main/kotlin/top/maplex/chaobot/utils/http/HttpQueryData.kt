@@ -10,6 +10,7 @@ import okhttp3.Response
 import okio.BufferedSink
 import okio.IOException
 import okio.source
+import top.maplex.chaobot.BotConfig
 import top.maplex.chaobot.Main
 import java.io.File
 
@@ -19,7 +20,7 @@ enum class HttpType {
 }
 
 fun httpQuery(url: String, httpType: HttpType = HttpType.POST, block: HttpQueryData.() -> Unit = {}): HttpQueryData {
-    return HttpQueryData(Main.config.getString("server.send", "http://localhost:3000")!!).apply {
+    return HttpQueryData(BotConfig.config.getString("server.send", "http://localhost:3000/")!!).apply {
         path(url)
         block.invoke(this)
         queryType(httpType)

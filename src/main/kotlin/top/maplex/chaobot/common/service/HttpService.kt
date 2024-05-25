@@ -6,6 +6,7 @@ import taboolib.common.platform.Awake
 import taboolib.common.util.unsafeLazy
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.ConfigFile
+import top.maplex.chaobot.BotConfig
 import top.maplex.chaobot.Main
 import top.maplex.chaobot.common.event.BotEvent
 import top.maplex.chaobot.utils.tPrintln
@@ -29,8 +30,8 @@ object HttpService {
 
     @Awake
     fun init() {
-        server.start(Main.config.getInt("server.port", 8080))
-        tPrintln("&aHTTP 服务已启动 &7- &8${Main.config.getInt("server.port", 8080)}")
+        server.start(BotConfig.config.getInt("server.port", 8080))
+        tPrintln("&aHTTP 服务已启动 &7- &8${BotConfig.config.getInt("server.port", 8080)}")
         server.get("/") { it.result("Hello, Chaobot!") }
         server.post("/event") {
             it.result("OK!")

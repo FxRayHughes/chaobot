@@ -1,28 +1,38 @@
 package top.maplex.chaobot.common.impl
 
+import com.alibaba.fastjson2.JSON
 import taboolib.common.platform.event.SubscribeEvent
 import top.maplex.chaobot.common.entity.MessageEntity
 import top.maplex.chaobot.common.event.BotEvent
 import top.maplex.chaobot.common.event.FriendMessageEvent
 import top.maplex.chaobot.common.event.GroupMessageEvent
+import top.maplex.chaobot.common.event.MessageEvent
+import top.maplex.chaobot.common.message.Message
+import top.maplex.chaobot.utils.tPrintln
 
 object MessageListener {
 
     @SubscribeEvent(level = 0)
     fun groupMessage(event: BotEvent) {
-        if (event.getType() == ("message" to "normal")) {
-            GroupMessageEvent(event.data.to(MessageEntity::class.java), event).call()
-        }
-        if (event.getType() == ("message" to "friend")) {
-            FriendMessageEvent(event.data.to(MessageEntity::class.java), event).call()
+        if (event.postType() == "message") {
+            val also = MessageEvent(JSON.parseObject(event.source, MessageEntity::class.java), event).also { it.call() }
+            if (event.getType() == ("message" to "normal")) {
+                GroupMessageEvent(also).call()
+            }
+            if (event.getType() == ("message" to "friend")) {
+                FriendMessageEvent(also).call()
+            }
         }
     }
 
     // test
 
     @SubscribeEvent(level = 2)
-    fun testGroupMessage(event: GroupMessageEvent) {
-        event.messageEntity.message
+    fun testGroupMessage(event: MessageEvent) {
+        if (event.messageEntity.rawMessage.contains("鸣潮！")) {
+            tPrintln("尝试返回信息")
+            Message.sendMessage(event.messageEntity, MessageEntity.MessageData("text", MessageEntity.MessageDataValue("启动！")))
+        }
     }
 
 }

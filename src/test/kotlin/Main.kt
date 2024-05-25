@@ -32,7 +32,7 @@ fun main() {
   "post_type": "message",
   "group_id": 236016830
 }
-    """.trimIndent(), MessageEntity::class.java
+    """.trimIndent(),MessageEntity::class.java
     )
     println(parseObject)
 

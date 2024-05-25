@@ -29,6 +29,8 @@ object LogManager {
         }
         logFile = newFile("./logs/latest.log", true)
         logFile.writeText("Chaobot Log\n")
+
+
     }
 
 }
