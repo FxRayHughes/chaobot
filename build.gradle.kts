@@ -34,6 +34,7 @@ dependencies {
     taboo("org.slf4j:slf4j-simple:2.0.10")
     taboo("com.alibaba.fastjson2:fastjson2-kotlin:2.0.50")
     testImplementation(kotlin("test"))
+    testImplementation("com.alibaba.fastjson2:fastjson2-kotlin:2.0.50")
     taboo(kotlin("reflect"))
 }
 

@@ -8,4 +8,18 @@ open class BotEvent(
     val data: JSONObject,
     // 源数据 未处理
     val source: String
-) : ProxyEvent()
+) : ProxyEvent() {
+
+    fun postType(): String {
+        return data.getString("post_type")
+    }
+
+    fun subType(): String {
+        return data.getString("sub_type")
+    }
+
+    fun getType(): Pair<String, String> {
+        return postType() to subType()
+    }
+
+}

@@ -1,6 +1,7 @@
 package top.maplex.chaobot
 
 import taboolib.platform.App
+import top.maplex.chaobot.utils.log.LogManager
 import top.maplex.chaobot.utils.start.StartHook
 import top.maplex.chaobot.utils.tPrintln
 
@@ -14,6 +15,7 @@ object Main {
         })
 
         App.init()
+        LogManager.start()
         StartHook.eval()
         tPrintln("&3鸣潮Bot · 枫溪 &7- &8Chaobot - &f1.0.0")
 
