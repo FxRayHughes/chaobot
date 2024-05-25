@@ -8,6 +8,7 @@ import top.maplex.chaobot.common.event.FriendMessageEvent
 import top.maplex.chaobot.common.event.GroupMessageEvent
 import top.maplex.chaobot.common.event.MessageEvent
 import top.maplex.chaobot.common.message.Message
+import top.maplex.chaobot.common.message.builder.send
 import top.maplex.chaobot.utils.tPrintln
 
 object MessageListener {
@@ -31,7 +32,11 @@ object MessageListener {
     fun testGroupMessage(event: MessageEvent) {
         if (event.messageEntity.rawMessage.contains("鸣潮！")) {
             tPrintln("尝试返回信息")
-            Message.sendMessage(event.messageEntity, MessageEntity.MessageData("text", MessageEntity.MessageDataValue("启动！")))
+//            Message.sendMessage(event.messageEntity, MessageEntity.MessageData("text", MessageEntity.MessageDataValue("启动！")))
+            event.messageEntity.send {
+                reply(event.messageEntity.messageId.toString())
+                text("启动！")
+            }
         }
     }
 
