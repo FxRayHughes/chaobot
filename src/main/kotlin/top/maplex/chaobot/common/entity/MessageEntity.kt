@@ -5,56 +5,76 @@ import taboolib.common.platform.ProxyCommandSender
 import top.maplex.chaobot.Main
 
 data class MessageEntity(
-    val time: Long = -1,
+    var time: Long = -1,
     @JSONField(name = "self_id")
-    val selfId: Long = -1,
+    var selfId: Long = -1,
     @JSONField(name = "post_type")
-    val postType: String = "",
+    var postType: String = "",
     @JSONField(name = "message_type")
-    val messageType: String = "",
+    var messageType: String = "",
     @JSONField(name = "sub_type")
-    val subType: String = "",
+    var subType: String = "",
     @JSONField(name = "message_id")
-    val messageId: Long = -1,
+    var messageId: Long = -1,
     @JSONField(name = "group_id")
-    val groupId: Long = -1,
+    var groupId: Long = -1,
     @JSONField(name = "user_id")
-    val userId: Long = -1,
+    var userId: Long = -1,
     @JSONField(name = "message")
-    val message: String = "",
+    var message: List<MessageData> = emptyList(),
     @JSONField(name = "raw_message")
-    val rawMessage: String = "",
+    var rawMessage: String = "",
     @JSONField(name = "font")
-    val font: Long = -1,
+    var font: Long = -1,
     @JSONField(name = "sender")
-    val sender: SenderEntity? = null,
+    var sender: SenderEntity? = null,
 ) {
+
+    data class MessageData(
+        var type: String,
+        var data: Any,
+    )
+
+    data class MessageDataValue(
+        var text: String = "",
+        var id: String = "",
+        var file: String = "",
+        var type: String = "",
+        var url: String = "",
+        var cache: Int = 1,
+        var proxy: Int = 1,
+        var timeout: Int = -1,
+        var qq: String = "",
+        var title: String = "",
+        var content: String = "",
+        val image: String = "",
+    )
 
     data class SenderEntity(
         @JSONField(name = "user_id")
-        val userId: Long = -1,
+        var userId: Long = -1,
         @JSONField(name = "nickname")
-        val nickname: String = "",
+        var nickname: String = "",
         @JSONField(name = "card")
-        val card: String = "",
+        var card: String = "",
         @JSONField(name = "sex")
-        val sex: String = "",
+        var sex: String = "",
         @JSONField(name = "age")
-        val age: Int = -1,
+        var age: Int = -1,
         @JSONField(name = "area")
-        val area: String = "",
+        var area: String = "",
         @JSONField(name = "level")
-        val level: String = "",
+        var level: String = "",
         @JSONField(name = "role")
-        val role: String = "",
+        var role: String = "",
         @JSONField(name = "title")
-        val title: String = "",
+        var title: String = "",
         @JSONField(serialize = false, deserialize = false)
         override var isOp: Boolean,
         @JSONField(serialize = false, deserialize = false)
-        override val name: String = nickname,
+        override var name: String = nickname,
         @JSONField(serialize = false, deserialize = false)
-        override val origin: Any,
+        override var origin: Any,
     ) : ProxyCommandSender {
         override fun hasPermission(permission: String): Boolean {
             if (role == "") {

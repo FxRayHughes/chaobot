@@ -18,4 +18,11 @@ object MessageListener {
         }
     }
 
+    // test
+
+    @SubscribeEvent(level = 2)
+    fun testGroupMessage(event: GroupMessageEvent) {
+        event.messageEntity.message
+    }
+
 }
