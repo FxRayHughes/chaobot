@@ -1,4 +1,5 @@
 package top.maplex.chaobot.utils
+
 import top.maplex.chaobot.utils.log.LogManager
 import java.awt.Color
 
@@ -154,12 +155,12 @@ fun String.consoleColored(): String {
     return BukkitColorAnsiBuilder.colored(this)
 }
 
-fun tPrintln(message: Any) {
+fun tPrintln(message: Any?) {
     println(message.toString().consoleColored())
     LogManager.log(message.toString())
 }
 
-fun tPrint(message: Any) {
+fun tPrint(message: Any?) {
     print(message.toString().consoleColored())
     LogManager.log(message.toString())
 }

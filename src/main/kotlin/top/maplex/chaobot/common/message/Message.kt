@@ -38,11 +38,12 @@ object Message {
     fun sendMessage(senderEntity: MessageEntity, vararg messageData: MessageEntity.MessageData) {
         httpQuery("send_msg", HttpType.POST) {
             val map = mutableMapOf<String, Any>()
-            if (senderEntity.userId != -1L) {
-                map["user_id"] = senderEntity.userId
-            }
             if (senderEntity.groupId != -1L) {
                 map["group_id"] = senderEntity.groupId
+            } else if (senderEntity.userId != -1L) {
+                map["user_id"] = senderEntity.userId
+            } else {
+                error("发送消息时未找到发送对象")
             }
             map["message"] = messageData
             queryJson(map) {

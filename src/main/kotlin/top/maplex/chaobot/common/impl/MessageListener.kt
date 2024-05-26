@@ -1,6 +1,7 @@
 package top.maplex.chaobot.common.impl
 
 import com.alibaba.fastjson2.JSON
+import taboolib.common.platform.Awake
 import taboolib.common.platform.event.SubscribeEvent
 import top.maplex.chaobot.common.entity.MessageEntity
 import top.maplex.chaobot.common.event.BotEvent
@@ -9,6 +10,7 @@ import top.maplex.chaobot.common.event.GroupMessageEvent
 import top.maplex.chaobot.common.event.MessageEvent
 import top.maplex.chaobot.common.message.Message
 import top.maplex.chaobot.common.message.builder.send
+import top.maplex.chaobot.utils.file.ImageLoader
 import top.maplex.chaobot.utils.tPrintln
 
 object MessageListener {
@@ -22,20 +24,6 @@ object MessageListener {
             }
             if (event.getType() == ("message" to "friend")) {
                 FriendMessageEvent(also).call()
-            }
-        }
-    }
-
-    // test
-
-    @SubscribeEvent(level = 2)
-    fun testGroupMessage(event: MessageEvent) {
-        if (event.messageEntity.rawMessage.contains("鸣潮！")) {
-            tPrintln("尝试返回信息")
-//            Message.sendMessage(event.messageEntity, MessageEntity.MessageData("text", MessageEntity.MessageDataValue("启动！")))
-            event.messageEntity.send {
-                reply(event.messageEntity.messageId.toString())
-                text("启动！")
             }
         }
     }

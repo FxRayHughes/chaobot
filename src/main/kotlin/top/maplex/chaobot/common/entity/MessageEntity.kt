@@ -69,7 +69,27 @@ data class MessageEntity(
         var role: String = "",
         @JSONField(name = "title")
         var title: String = "",
-    )
+    ) {
+
+        fun getName(): String {
+            return if (card == "") {
+                nickname
+            } else {
+                card
+            }
+        }
+
+        fun hasPermission(permission: String): Boolean {
+            if (role == "") {
+                return userId in BotConfig.getAdmins()
+            }
+            if (permission == "admin") {
+                return role == "admin" || role == "owner"
+            }
+            return false
+        }
+
+    }
 
     /**        @JSONField(serialize = false, deserialize = false)
     override var isOp: Boolean,

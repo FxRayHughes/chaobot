@@ -8,6 +8,8 @@ import taboolib.library.reflex.Reflex.Companion.invokeMethod
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
 import taboolib.module.configuration.Type
+import top.maplex.chaobot.common.command.BotCommand
+import top.maplex.chaobot.common.command.CommandManager
 import top.maplex.chaobot.utils.event.BotListener
 import top.maplex.chaobot.utils.event.EventManager
 import top.maplex.chaobot.utils.tPrintln
@@ -21,6 +23,7 @@ object StartHook {
         evalConfig()
         evalAwake()
         evalEvent()
+        evalCommand()
     }
 
     fun evalConfig() {
@@ -93,6 +96,20 @@ object StartHook {
 
                 }
 
+            }
+        }
+    }
+
+    fun evalCommand() {
+        runningClasses.forEach { clazz ->
+            if (clazz.name.startsWith(PACKAGE)) {
+                if (clazz.interfaces.contains(BotCommand::class.java)) {
+                    val instance = clazz.kotlin.objectInstance ?: clazz.getInstance()
+                    if (instance != null) {
+                        instance.invokeMethod<Unit>("init")
+                        CommandManager.registerCommand(instance as BotCommand)
+                    }
+                }
             }
         }
     }

@@ -2,6 +2,8 @@ package top.maplex.chaobot.common.message.builder
 
 import top.maplex.chaobot.common.entity.MessageEntity
 import top.maplex.chaobot.common.message.Message
+import java.io.File
+import java.util.Base64
 
 fun test() {
 
@@ -69,7 +71,11 @@ class ImageBuilder {
     }
 
     fun filePath(filePath: String) {
-        messageDataValue.file = "file:///$filePath"
+        messageDataValue.file = filePath
+    }
+
+    fun file(file: File) {
+        messageDataValue.file = Base64.getEncoder().encodeToString(file.readBytes())
     }
 
     fun fileURL(fileURL: String) {
