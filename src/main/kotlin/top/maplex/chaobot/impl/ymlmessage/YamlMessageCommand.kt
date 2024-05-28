@@ -16,6 +16,10 @@ object YamlMessageCommand : BotCommand {
             "reload" to "重载配置文件",
         )
 
+    override fun init() {
+        YamlMessage.build()
+    }
+
     override fun execute(sender: MessageEntity, args: List<String>?) {
         if (args.isNullOrEmpty()) {
             showHelp(sender)
@@ -31,7 +35,7 @@ object YamlMessageCommand : BotCommand {
                 if (sender.sender?.hasPermission("dic.reload") != true) {
                     return
                 }
-                YamlMessage.config.reload()
+                YamlMessage.build()
                 sender.send {
                     reply(sender.messageId.toString())
                     text("重载成功")

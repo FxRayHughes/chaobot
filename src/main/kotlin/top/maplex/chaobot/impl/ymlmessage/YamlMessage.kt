@@ -1,9 +1,12 @@
 package top.maplex.chaobot.impl.ymlmessage
 
+import taboolib.common.io.newFolder
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.library.configuration.ConfigurationSection
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.ConfigFile
+import taboolib.module.configuration.Configuration
+import taboolib.module.configuration.Type
 import top.maplex.chaobot.common.entity.MessageEntity
 import top.maplex.chaobot.common.event.MessageEvent
 import top.maplex.chaobot.common.message.Message
@@ -12,8 +15,16 @@ import top.maplex.chaobot.utils.file.ImageLoader
 
 object YamlMessage {
 
-    @Config("message.yml")
-    lateinit var config: ConfigFile
+    val configMap = HashMap<String, ConfigFile>()
+
+    fun build() {
+        configMap.clear()
+        val file = newFolder("./data/", create = true)
+        file.listFiles()?.forEach {
+            val loadFromFile = Configuration.loadFromFile(it, Type.YAML) as ConfigFile
+            configMap[it.nameWithoutExtension] = loadFromFile
+        }
+    }
 
     @SubscribeEvent
     fun onMessage(event: MessageEvent) {
@@ -68,13 +79,15 @@ object YamlMessage {
     }
 
     fun getKey(key: String): ConfigurationSection? {
-        val subConfig = config.getConfigurationSection(key)
-        if (subConfig != null) {
-            return subConfig
-        }
-        config.getKeys(false).forEach {
-            if (config.getStringList("$it.alias").contains(key)) {
-                return config.getConfigurationSection(it)
+        for (config in configMap.values) {
+            val subConfig = config.getConfigurationSection(key)
+            if (subConfig != null) {
+                return subConfig
+            }
+            config.getKeys(false).forEach {
+                if (config.getStringList("$it.alias").contains(key)) {
+                    return config.getConfigurationSection(it)
+                }
             }
         }
         return null

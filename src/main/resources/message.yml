@@ -1,3 +1,31 @@
+鸢尾花点位:
+  alias:
+    - "鸢尾花"
+    - "鸢尾花采集点"
+  message:
+    - type: "image"
+      file: "采集点:鸢尾花"
+    - type: "text"
+      text: "数据来源: https://www.kurobbs.com/mc/post/1244108657153097728"
+    - type: "text"
+      text: "数据作者: 香草冰冰球"
+金阳凤点位:
+  alias:
+    - "金阳凤"
+    - "金阳凤采集点"
+  message:
+    - type: "image"
+      file: "采集点:金阳凤"
+    - type: "image"
+      file: "采集点:金阳凤2"
+    - type: "image"
+      file: "采集点:金阳凤3"
+    - type: "text"
+      text: "数据来源: https://www.kurobbs.com/mc/post/1244610121051365376"
+    - type: "text"
+      text: "数据来源: https://www.kurobbs.com/mc/post/1244610573552951296"
+    - type: "text"
+      text: "数据作者: 幽影youying"
 妙弋花点位:
   alias:
     - "妙弋花"
@@ -6,6 +34,39 @@
     - type: "image"
       file: "采集点:妙弋花"
     - type: "text"
-      text: "数据来源: https://www.kurobbs.com/mc/post/1243216653208059904"
+      text: "数据来源: https://www.kurobbs.com/mc/post/1244280579772211200"
     - type: "text"
-      text: "数据作者: 小沐XMu UID:100034838"
+      text: "数据作者: 香草冰冰球"
+灯笼果点位:
+  alias:
+    - "灯笼果"
+    - "灯笼果采集点"
+  message:
+    - type: "image"
+      file: "采集点:灯笼果"
+    - type: "text"
+      text: "数据来源: https://www.kurobbs.com/mc/post/1244344485950889984"
+    - type: "text"
+      text: "数据作者: 香草冰冰球"
+云芝点位:
+  alias:
+    - "云芝"
+    - "云芝采集点"
+  message:
+    - type: "image"
+      file: "采集点:云芝"
+    - type: "text"
+      text: "数据来源: https://www.kurobbs.com/mc/post/1244662667339980800"
+    - type: "text"
+      text: "数据作者: 香草冰冰球"
+地涌莲点位:
+  alias:
+    - "地涌莲"
+    - "地涌莲采集点"
+  message:
+    - type: "image"
+      file: "采集点:地涌莲"
+    - type: "text"
+      text: "数据来源: https://www.kurobbs.com/mc/post/1244758119810678784"
+    - type: "text"
+      text: "数据作者: 香草冰冰球"
