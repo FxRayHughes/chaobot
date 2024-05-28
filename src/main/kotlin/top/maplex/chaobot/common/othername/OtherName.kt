@@ -12,6 +12,14 @@ object OtherName {
     @Config("dictionary.yml")
     lateinit var config: ConfigFile
 
+    fun add(input: String, value: String) {
+        if (has(input)) {
+            return
+        }
+        config[input] = config.getStringList(input) + value
+        config.saveToFile()
+    }
+
     fun has(input: String): Boolean {
         config.getKeys(false).forEach {
             if (it == input) {

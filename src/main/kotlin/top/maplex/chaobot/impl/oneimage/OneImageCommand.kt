@@ -30,7 +30,6 @@ object OneImageCommand : BotCommand {
                 }
             }
         }
-
     }
 
     override fun execute(sender: MessageEntity, args: List<String>?) {

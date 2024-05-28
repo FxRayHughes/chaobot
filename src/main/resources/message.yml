@@ -1,0 +1,11 @@
+妙弋花点位:
+  alias:
+    - "妙弋花"
+    - "妙弋花采集点"
+  message:
+    - type: "image"
+      file: "采集点:妙弋花"
+    - type: "text"
+      text: "数据来源: https://www.kurobbs.com/mc/post/1243216653208059904"
+    - type: "text"
+      text: "数据作者: 小沐XMu UID:100034838"

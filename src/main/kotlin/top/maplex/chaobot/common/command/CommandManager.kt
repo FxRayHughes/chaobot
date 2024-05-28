@@ -14,7 +14,7 @@ object CommandManager {
         val message = event.messageEntity.rawMessage
         if (message.startsWith("/") || message.startsWith(".")) {
             val split = message.split(" ")
-            getCommand(split[0].substring(1))?.execute(event.messageEntity, split.subList(1, split.size))
+            getCommand(split[0].substring(1))?.execute(event.messageEntity, split.drop(1))
         } else {
             getCommand(message)?.execute(event.messageEntity)
         }

@@ -32,6 +32,10 @@ class MessageBuilder {
     val messageData = mutableListOf<MessageEntity.MessageData>()
 
     fun text(text: String) {
+        messageData.add(MessageEntity.MessageData("text", MessageEntity.MessageDataValue(text + "\n")))
+    }
+
+    fun textNoLine(text: String) {
         messageData.add(MessageEntity.MessageData("text", MessageEntity.MessageDataValue(text)))
     }
 
